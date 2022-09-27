@@ -15,9 +15,10 @@ class Form extends React.Component {
       onInputChange,
       cardTrunfo,
       cardRare,
-      isSaveButtonDisabled,
+      validateForm,
       onSaveButtonClick,
     } = state;
+
     return (
       <section className="card">
         <label htmlFor="cardName">
@@ -47,6 +48,7 @@ class Form extends React.Component {
             data-testid="attr1-input"
             type="number"
             name="cardAttr1"
+            max={ 90 }
             id="cardAttr1"
             value={ cardAttr1 }
             onChange={ onInputChange }
@@ -59,6 +61,7 @@ class Form extends React.Component {
             type="number"
             name="cardAttr2"
             id="cardAttr2"
+            max={ 90 }
             value={ cardAttr2 }
             onChange={ onInputChange }
           />
@@ -70,6 +73,7 @@ class Form extends React.Component {
             type="number"
             name="cardAttr3"
             id="cardAttr3"
+            max={ 90 }
             value={ cardAttr3 }
             onChange={ onInputChange }
           />
@@ -112,7 +116,7 @@ class Form extends React.Component {
         <button
           type="button"
           data-testid="save-button"
-          disabled={ isSaveButtonDisabled }
+          disabled={ !validateForm() }
           onClick={ onSaveButtonClick }
         >
           Salvar
@@ -131,7 +135,7 @@ Form.propTypes = {
   onInputChange: PropTypes.func,
   cardTrunfo: PropTypes.bool,
   cardRare: PropTypes.string,
-  isSaveButtonDisabled: PropTypes.bool,
+  validateForm: PropTypes.func,
   onSaveButtonClick: PropTypes.func,
 };
 Form.defaultProps = {
@@ -144,7 +148,7 @@ Form.defaultProps = {
   onInputChange: 'PropTypes.string',
   cardTrunfo: '',
   cardRare: '',
-  isSaveButtonDisabled: '',
+  validateForm: '',
   onSaveButtonClick: '',
 
 };
