@@ -1,20 +1,44 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import '../styles/Form.css';
 
 class Form extends React.Component {
   render() {
+    const state = this.props;
+    const {
+      cardName,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      onInputChange,
+      cardTrunfo,
+      cardRare,
+      isSaveButtonDisabled,
+      onSaveButtonClick,
+    } = state;
     return (
       <section className="card">
-        <label htmlFor="name">
+        <label htmlFor="cardName">
           Nome da Carta
-          <input data-testid="name-input" type="text" name="name" id="name" />
+          <input
+            data-testid="name-input"
+            type="text"
+            name="cardName"
+            id="cardName"
+            value={ cardName }
+            onChange={ onInputChange }
+          />
         </label>
-        <label htmlFor="description">
+        <label htmlFor="cardDescription">
           Descrição
           <textarea
             data-testid="description-input"
-            name="description"
-            id="description"
+            name="cardDescription"
+            id="cardDescription"
+            value={ cardDescription }
+            onChange={ onInputChange }
           />
         </label>
         <label htmlFor="atributo01">
@@ -22,17 +46,21 @@ class Form extends React.Component {
           <input
             data-testid="attr1-input"
             type="number"
-            name="atributo01"
-            id="atributo01"
+            name="cardAttr1"
+            id="cardAttr1"
+            value={ cardAttr1 }
+            onChange={ onInputChange }
           />
         </label>
-        <label htmlFor="atributo02">
+        <label htmlFor="cardAttr2">
           Atributo 02
           <input
             data-testid="attr2-input"
             type="number"
-            name="atributo02"
-            id="atributo02"
+            name="cardAttr2"
+            id="cardAttr2"
+            value={ cardAttr2 }
+            onChange={ onInputChange }
           />
         </label>
         <label htmlFor="atributo03">
@@ -40,41 +68,84 @@ class Form extends React.Component {
           <input
             data-testid="attr3-input"
             type="number"
-            name="atributo03"
-            id="atributo03"
+            name="cardAttr3"
+            id="cardAttr3"
+            value={ cardAttr3 }
+            onChange={ onInputChange }
           />
         </label>
-        <label htmlFor="imagemURL">
+        <label htmlFor="cardImage">
           URL da Imagem
           <input
             data-testid="image-input"
             type="text"
-            name="imagemURL"
-            id="imagemURL"
+            name="cardImage"
+            id="cardImage"
+            value={ cardImage }
+            onChange={ onInputChange }
           />
         </label>
         <label htmlFor="raridade">
           Raridade
-          <select data-testid="rare-input">
+          <select
+            data-testid="rare-input"
+            onChange={ onInputChange }
+            name="cardRare"
+            value={ cardRare }
+          >
             <option value="normal">Normal</option>
             <option value="raro">Raro</option>
-            <option selected value="muito raro">
-              Muito Raro
-            </option>
+            <option defaultValue="muitoRaro">muito raro</option>
           </select>
         </label>
-        <label htmlFor="supertrunfo">
+        <label htmlFor="cardTrunfo">
           SuperTrunfo
           <input
             data-testid="trunfo-input"
             type="checkbox"
-            name="supertrunfo"
-            id="supertrunfo"
+            name="cardTrunfo"
+            id="cardTrunfo"
+            checked={ cardTrunfo }
+            onChange={ onInputChange }
           />
         </label>
-        <button type="button" data-testid="save-button">Salvar</button>
+        <button
+          type="button"
+          data-testid="save-button"
+          disabled={ isSaveButtonDisabled }
+          onClick={ onSaveButtonClick }
+        >
+          Salvar
+        </button>
       </section>
     );
   }
 }
+Form.propTypes = {
+  cardName: PropTypes.string,
+  cardDescription: PropTypes.string,
+  cardAttr1: PropTypes.string,
+  cardAttr2: PropTypes.string,
+  cardAttr3: PropTypes.string,
+  cardImage: PropTypes.string,
+  onInputChange: PropTypes.func,
+  cardTrunfo: PropTypes.bool,
+  cardRare: PropTypes.string,
+  isSaveButtonDisabled: PropTypes.bool,
+  onSaveButtonClick: PropTypes.func,
+};
+Form.defaultProps = {
+  cardName: 'Guizao',
+  cardDescription: 'Muito forte, porem muito lento',
+  cardAttr1: '3',
+  cardAttr2: '10',
+  cardAttr3: '11',
+  cardImage: 'url qualquer',
+  onInputChange: 'PropTypes.string',
+  cardTrunfo: '',
+  cardRare: '',
+  isSaveButtonDisabled: '',
+  onSaveButtonClick: '',
+
+};
 export default Form;
