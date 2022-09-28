@@ -1,5 +1,6 @@
 import React from 'react';
 import Card from './components/Card';
+import CardList from './components/CardList';
 import Form from './components/Form';
 import './styles/Form.css';
 
@@ -35,13 +36,15 @@ class App extends React.Component {
     const veriSomaMax = parseInt(cardAttr1, 10)
     + parseInt(cardAttr2, 10)
     + parseInt(cardAttr3, 10) > somaMax;
-    return (verificaName
+    if (verificaName
       && verificaImg
       && verificaCardDescription
       && !verificaAttr1
       && !verificaAttr2
       && !verificaAttr3
-      && !veriSomaMax);
+      && !veriSomaMax) {
+      this.setState({ isSaveButtonDisabled: false });
+    } else { this.setState({ isSaveButtonDisabled: true }); }
   };
 
   validateSuperTrunfo = () => {
@@ -55,7 +58,7 @@ class App extends React.Component {
   onInputChange = (event) => {
     const { name, type, checked } = event.target;
     const value = type === 'checkbox' ? checked : event.target.value;
-    this.setState({ [name]: value });
+    this.setState({ [name]: value }, this.validateForm());
   };
 
   onSaveButtonClick = () => {
@@ -81,6 +84,7 @@ class App extends React.Component {
       cardAttr3: '0',
       cardImage: '',
       cardRare: 'normal',
+      cardTrunfo: false,
     });
     this.validateSuperTrunfo();
   };
@@ -88,35 +92,40 @@ class App extends React.Component {
   render() {
     const { cardName, cardDescription, cardAttr1,
       cardAttr2, cardAttr3, cardImage,
-      cardRare, cardTrunfo, isSaveButtonDisabled, isSuperTrunfoDisabled } = this.state;
+      cardRare, cardTrunfo, isSaveButtonDisabled,
+      isSuperTrunfoDisabled, savedCards } = this.state;
     return (
-      <div className="content">
-        <Form
-          cardName={ cardName }
-          cardDescription={ cardDescription }
-          cardAttr1={ cardAttr1 }
-          cardAttr2={ cardAttr2 }
-          cardAttr3={ cardAttr3 }
-          cardImage={ cardImage }
-          cardRare={ cardRare }
-          cardTrunfo={ cardTrunfo }
-          isSaveButtonDisabled={ isSaveButtonDisabled }
-          onInputChange={ this.onInputChange }
-          onSaveButtonClick={ this.onSaveButtonClick }
-          validateForm={ this.validateForm }
-          isSuperTrunfoDisabled={ isSuperTrunfoDisabled }
-        />
-        <Card
-          cardName={ cardName }
-          cardDescription={ cardDescription }
-          cardAttr1={ cardAttr1 }
-          cardAttr2={ cardAttr2 }
-          cardAttr3={ cardAttr3 }
-          cardImage={ cardImage }
-          cardRare={ cardRare }
-          cardTrunfo={ cardTrunfo }
-        />
+      <div>
+        <div className="content">
+          <Form
+            cardName={ cardName }
+            cardDescription={ cardDescription }
+            cardAttr1={ cardAttr1 }
+            cardAttr2={ cardAttr2 }
+            cardAttr3={ cardAttr3 }
+            cardImage={ cardImage }
+            cardRare={ cardRare }
+            cardTrunfo={ cardTrunfo }
+            isSaveButtonDisabled={ isSaveButtonDisabled }
+            onInputChange={ this.onInputChange }
+            onSaveButtonClick={ this.onSaveButtonClick }
+            validateForm={ this.validateForm }
+            isSuperTrunfoDisabled={ isSuperTrunfoDisabled }
+          />
+          <Card
+            cardName={ cardName }
+            cardDescription={ cardDescription }
+            cardAttr1={ cardAttr1 }
+            cardAttr2={ cardAttr2 }
+            cardAttr3={ cardAttr3 }
+            cardImage={ cardImage }
+            cardRare={ cardRare }
+            cardTrunfo={ cardTrunfo }
+          />
+        </div>
+        <CardList savedCards={ savedCards } />
       </div>
+
     );
   }
 }

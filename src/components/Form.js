@@ -15,9 +15,9 @@ class Form extends React.Component {
       onInputChange,
       cardTrunfo,
       cardRare,
-      validateForm,
+      // validateForm,
       onSaveButtonClick,
-      // isSaveButtonDisabled,
+      isSaveButtonDisabled,
       isSuperTrunfoDisabled,
 
     } = state;
@@ -120,7 +120,7 @@ class Form extends React.Component {
         <button
           type="button"
           data-testid="save-button"
-          disabled={ !validateForm() }
+          disabled={ isSaveButtonDisabled }
           onClick={ onSaveButtonClick }
         >
           Salvar
@@ -139,10 +139,10 @@ Form.propTypes = {
   onInputChange: PropTypes.func,
   cardTrunfo: PropTypes.bool,
   cardRare: PropTypes.string,
-  validateForm: PropTypes.func,
+  // validateForm: PropTypes.func,
   onSaveButtonClick: PropTypes.func,
   isSuperTrunfoDisabled: PropTypes.bool,
-  // isSaveButtonDisabled: PropTypes.bool,
+  isSaveButtonDisabled: PropTypes.bool,
 };
 Form.defaultProps = {
   cardName: 'Guizao',
@@ -154,9 +154,9 @@ Form.defaultProps = {
   onInputChange: 'PropTypes.string',
   cardTrunfo: '',
   cardRare: '',
-  validateForm: '',
+  // validateForm: '',
   onSaveButtonClick: '',
   isSuperTrunfoDisabled: '',
-  // isSaveButtonDisabled: '',
+  isSaveButtonDisabled: '',
 };
 export default Form;
