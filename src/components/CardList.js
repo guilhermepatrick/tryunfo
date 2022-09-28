@@ -7,6 +7,7 @@ class CardList extends React.Component {
     super();
     this.state = {
       searchValue: '',
+      rareValue: 'todas',
     };
   }
 
@@ -14,8 +15,12 @@ class CardList extends React.Component {
     this.setState({ searchValue: event.target.value.toLowerCase() });
   };
 
+  handleRareValue = (event) => {
+    this.setState({ rareValue: event.target.value });
+  };
+
   render() {
-    const { searchValue } = this.state;
+    const { searchValue, rareValue } = this.state;
     const { savedCards, handleRemove } = this.props;
     const cardList = savedCards;
 
@@ -31,8 +36,29 @@ class CardList extends React.Component {
           data-testid="name-filter"
           placeholder="Digite aqui o nome de uma carta"
         />
+        <label htmlFor="raridade">
+          Raridade
+          <select
+            data-testid="rare-filter"
+            onChange={ this.handleRareValue }
+            name="cardRare"
+          >
+            <option value="todas">todas</option>
+            <option value="normal">normal</option>
+            <option value="raro">raro</option>
+            <option value="muito raro">muito raro</option>
+          </select>
+        </label>
         {cardList.filter((actualCard) => actualCard.cardName.toLowerCase()
           .includes(searchValue))
+          .filter((actualCard) => {
+            if (rareValue === 'todas') {
+              return actualCard.cardName.toLowerCase()
+                .includes(searchValue);
+            }
+            return actualCard.cardName.toLowerCase()
+              .includes(searchValue) && actualCard.cardRare === rareValue;
+          })
           .map((actualCard, index) => (
             <div key={ index }>
               <Card

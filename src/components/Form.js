@@ -110,7 +110,7 @@ class Form extends React.Component {
           >
             <option value="normal">Normal</option>
             <option value="raro">Raro</option>
-            <option defaultValue="muitoRaro">muito raro</option>
+            <option defaultValue="muito raro">muito raro</option>
           </select>
         </label>
         <label htmlFor="cardTrunfo">
