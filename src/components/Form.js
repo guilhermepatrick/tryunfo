@@ -17,6 +17,7 @@ class Form extends React.Component {
       cardRare,
       validateForm,
       onSaveButtonClick,
+      // isSaveButtonDisabled,
     } = state;
 
     return (
@@ -137,6 +138,7 @@ Form.propTypes = {
   cardRare: PropTypes.string,
   validateForm: PropTypes.func,
   onSaveButtonClick: PropTypes.func,
+  // isSaveButtonDisabled: PropTypes.bool,
 };
 Form.defaultProps = {
   cardName: 'Guizao',
@@ -150,6 +152,6 @@ Form.defaultProps = {
   cardRare: '',
   validateForm: '',
   onSaveButtonClick: '',
-
+  // isSaveButtonDisabled: '',
 };
 export default Form;
