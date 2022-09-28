@@ -23,33 +23,38 @@ class App extends React.Component {
   }
 
   validateForm = () => {
-    const { cardName, cardImage, cardDescription,
-      cardAttr1, cardAttr2, cardAttr3 } = this.state;
-    const attrMax = 90;
+    const {
+      cardName,
+      cardImage,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+    } = this.state;
+    const AttrMax = 90;
     const somaMax = 210;
-    const verificaName = cardName.length > 0;
-    const verificaImg = cardImage.length > 0;
-    const verificaCardDescription = cardDescription.length > 0;
-    const verificaAttr1 = cardAttr1 > attrMax || cardAttr1 < 0;
-    const verificaAttr2 = cardAttr2 > attrMax || cardAttr2 < 0;
-    const verificaAttr3 = cardAttr3 > attrMax || cardAttr3 < 0;
-    const veriSomaMax = parseInt(cardAttr1, 10)
-    + parseInt(cardAttr2, 10)
-    + parseInt(cardAttr3, 10) > somaMax;
-    if (verificaName
-      && verificaImg
-      && verificaCardDescription
-      && !verificaAttr1
-      && !verificaAttr2
-      && !verificaAttr3
-      && !veriSomaMax) {
+    const arr = [cardName, cardImage, cardDescription];
+    const arrAttr = [cardAttr1, cardAttr2, cardAttr3];
+    const verificaSoma = parseInt(cardAttr1, 10)
+        + parseInt(cardAttr2, 10)
+        + parseInt(cardAttr3, 10)
+      <= somaMax;
+    const verificaAttr = arrAttr.every(
+      (element) => element >= 0 && element <= AttrMax,
+    );
+    const verificaTamanho = arr.every((element) => element.length > 0);
+    if (verificaTamanho && verificaAttr && verificaSoma) {
       this.setState({ isSaveButtonDisabled: false });
-    } else { this.setState({ isSaveButtonDisabled: true }); }
+    } else {
+      this.setState({ isSaveButtonDisabled: true });
+    }
   };
 
   validateSuperTrunfo = () => {
     const { savedCards } = this.state;
-    const verificacao = savedCards.filter((actualCard) => actualCard.cardTrunfo === true);
+    const verificacao = savedCards.filter(
+      (actualCard) => actualCard.cardTrunfo === true,
+    );
     if (verificacao.length > 0) {
       this.setState({ isSuperTrunfoDisabled: true });
     }
@@ -58,13 +63,21 @@ class App extends React.Component {
   onInputChange = (event) => {
     const { name, type, checked } = event.target;
     const value = type === 'checkbox' ? checked : event.target.value;
-    this.setState({ [name]: value }, this.validateForm());
+    this.setState({ [name]: value }, this.validateForm);
   };
 
   onSaveButtonClick = () => {
-    const { cardName, cardDescription, cardAttr1,
-      cardAttr2, cardAttr3, cardImage,
-      cardRare, cardTrunfo, savedCards } = this.state;
+    const {
+      cardName,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardRare,
+      cardTrunfo,
+      savedCards,
+    } = this.state;
     const actualCard = { cardName };
     actualCard.cardName = cardName;
     actualCard.cardDescription = cardDescription;
@@ -85,15 +98,25 @@ class App extends React.Component {
       cardImage: '',
       cardRare: 'normal',
       cardTrunfo: false,
+      isSaveButtonDisabled: false,
     });
     this.validateSuperTrunfo();
   };
 
   render() {
-    const { cardName, cardDescription, cardAttr1,
-      cardAttr2, cardAttr3, cardImage,
-      cardRare, cardTrunfo, isSaveButtonDisabled,
-      isSuperTrunfoDisabled, savedCards } = this.state;
+    const {
+      cardName,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardRare,
+      cardTrunfo,
+      isSaveButtonDisabled,
+      isSuperTrunfoDisabled,
+      savedCards,
+    } = this.state;
     return (
       <div>
         <div className="content">
@@ -125,7 +148,6 @@ class App extends React.Component {
         </div>
         <CardList savedCards={ savedCards } />
       </div>
-
     );
   }
 }
