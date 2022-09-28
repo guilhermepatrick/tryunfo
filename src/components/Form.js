@@ -18,8 +18,18 @@ class Form extends React.Component {
       validateForm,
       onSaveButtonClick,
       // isSaveButtonDisabled,
-    } = state;
+      isSuperTrunfoDisabled,
 
+    } = state;
+    const msg = 'Você já tem um Super Trunfo em seu baralho';
+    const checkBoxSuperTrunfo = (<input
+      data-testid="trunfo-input"
+      type="checkbox"
+      name="cardTrunfo"
+      id="cardTrunfo"
+      checked={ cardTrunfo }
+      onChange={ onInputChange }
+    />);
     return (
       <section className="card">
         <label htmlFor="cardName">
@@ -105,14 +115,7 @@ class Form extends React.Component {
         </label>
         <label htmlFor="cardTrunfo">
           SuperTrunfo
-          <input
-            data-testid="trunfo-input"
-            type="checkbox"
-            name="cardTrunfo"
-            id="cardTrunfo"
-            checked={ cardTrunfo }
-            onChange={ onInputChange }
-          />
+          {isSuperTrunfoDisabled ? <span>{msg}</span> : checkBoxSuperTrunfo }
         </label>
         <button
           type="button"
@@ -138,6 +141,7 @@ Form.propTypes = {
   cardRare: PropTypes.string,
   validateForm: PropTypes.func,
   onSaveButtonClick: PropTypes.func,
+  isSuperTrunfoDisabled: PropTypes.bool,
   // isSaveButtonDisabled: PropTypes.bool,
 };
 Form.defaultProps = {
@@ -152,6 +156,7 @@ Form.defaultProps = {
   cardRare: '',
   validateForm: '',
   onSaveButtonClick: '',
+  isSuperTrunfoDisabled: '',
   // isSaveButtonDisabled: '',
 };
 export default Form;

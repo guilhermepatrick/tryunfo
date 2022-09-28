@@ -17,6 +17,7 @@ class App extends React.Component {
       cardTrunfo: false,
       isSaveButtonDisabled: true,
       savedCards: [],
+      isSuperTrunfoDisabled: false,
     };
   }
 
@@ -41,6 +42,14 @@ class App extends React.Component {
       && !verificaAttr2
       && !verificaAttr3
       && !veriSomaMax);
+  };
+
+  validateSuperTrunfo = () => {
+    const { savedCards } = this.state;
+    const verificacao = savedCards.filter((actualCard) => actualCard.cardTrunfo === true);
+    if (verificacao.length > 0) {
+      this.setState({ isSuperTrunfoDisabled: true });
+    }
   };
 
   onInputChange = (event) => {
@@ -73,12 +82,13 @@ class App extends React.Component {
       cardImage: '',
       cardRare: 'normal',
     });
+    this.validateSuperTrunfo();
   };
 
   render() {
     const { cardName, cardDescription, cardAttr1,
       cardAttr2, cardAttr3, cardImage,
-      cardRare, cardTrunfo, isSaveButtonDisabled } = this.state;
+      cardRare, cardTrunfo, isSaveButtonDisabled, isSuperTrunfoDisabled } = this.state;
     return (
       <div className="content">
         <Form
@@ -94,6 +104,7 @@ class App extends React.Component {
           onInputChange={ this.onInputChange }
           onSaveButtonClick={ this.onSaveButtonClick }
           validateForm={ this.validateForm }
+          isSuperTrunfoDisabled={ isSuperTrunfoDisabled }
         />
         <Card
           cardName={ cardName }
