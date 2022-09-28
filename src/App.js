@@ -88,7 +88,6 @@ class App extends React.Component {
     actualCard.cardRare = cardRare;
     actualCard.cardTrunfo = cardTrunfo;
     savedCards.push(actualCard);
-    console.log(savedCards);
     this.setState({
       cardName: '',
       cardDescription: '',
@@ -101,6 +100,12 @@ class App extends React.Component {
       isSaveButtonDisabled: false,
     });
     this.validateSuperTrunfo();
+  };
+
+  handleRemove = (event) => {
+    console.log(event.target.parentElement);
+    event.target.parentElement.remove();
+    this.setState({ isSuperTrunfoDisabled: false });
   };
 
   render() {
@@ -146,7 +151,7 @@ class App extends React.Component {
             cardTrunfo={ cardTrunfo }
           />
         </div>
-        <CardList savedCards={ savedCards } />
+        <CardList handleRemove={ this.handleRemove } savedCards={ savedCards } />
       </div>
     );
   }
