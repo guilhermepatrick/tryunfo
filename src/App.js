@@ -103,7 +103,7 @@ class App extends React.Component {
   };
 
   handleRemove = (event) => {
-    console.log(event.target.parentElement);
+    console.log(event.target.parentElement.firstChild.firstChild);
     event.target.parentElement.remove();
     this.setState({ isSuperTrunfoDisabled: false });
   };

@@ -8,6 +8,7 @@ class CardList extends React.Component {
     this.state = {
       searchValue: '',
       rareValue: 'todas',
+      isDisable: false,
     };
   }
 
@@ -19,8 +20,17 @@ class CardList extends React.Component {
     this.setState({ rareValue: event.target.value });
   };
 
+  handleSuperTrunfo = ({ target }) => {
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    this.setState({
+      isDisable: value,
+      searchValue: '',
+      rareValue: 'todas',
+    });
+  };
+
   render() {
-    const { searchValue, rareValue } = this.state;
+    const { searchValue, rareValue, isDisable } = this.state;
     const { savedCards, handleRemove } = this.props;
     const cardList = savedCards;
 
@@ -34,6 +44,7 @@ class CardList extends React.Component {
           id="search"
           value={ searchValue }
           data-testid="name-filter"
+          disabled={ isDisable }
           placeholder="Digite aqui o nome de uma carta"
         />
         <label htmlFor="raridade">
@@ -42,16 +53,33 @@ class CardList extends React.Component {
             data-testid="rare-filter"
             onChange={ this.handleRareValue }
             name="cardRare"
+            disabled={ isDisable }
           >
             <option value="todas">todas</option>
             <option value="normal">normal</option>
             <option value="raro">raro</option>
             <option value="muito raro">muito raro</option>
           </select>
+          <label htmlFor="supertrunfo">
+            SuperTrunfo
+            <input
+              data-testid="trunfo-filter"
+              type="checkbox"
+              name="supertrunfo"
+              id="supertrunfo"
+              onChange={ this.handleSuperTrunfo }
+              value={ isDisable }
+            />
+          </label>
+
         </label>
-        {cardList.filter((actualCard) => actualCard.cardName.toLowerCase()
-          .includes(searchValue))
+        {cardList
+          .filter((actualCard) => actualCard.cardName.toLowerCase()
+            .includes(searchValue))
           .filter((actualCard) => {
+            if (isDisable) {
+              return actualCard.cardTrunfo === true;
+            }
             if (rareValue === 'todas') {
               return actualCard.cardName.toLowerCase()
                 .includes(searchValue);
@@ -62,6 +90,7 @@ class CardList extends React.Component {
           .map((actualCard, index) => (
             <div key={ index }>
               <Card
+                id={ actualCard.cardName }
                 key={ actualCard.cardName }
                 cardName={ actualCard.cardName }
                 cardDescription={ actualCard.cardDescription }
