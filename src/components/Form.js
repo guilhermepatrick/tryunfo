@@ -143,7 +143,8 @@ Form.propTypes = {
   onSaveButtonClick: PropTypes.func,
   isSuperTrunfoDisabled: PropTypes.bool,
   isSaveButtonDisabled: PropTypes.bool,
-};
+}.isRequired;
+
 Form.defaultProps = {
   cardName: 'Guizao',
   cardDescription: 'Muito forte, porem muito lento',

@@ -104,6 +104,7 @@ class CardList extends React.Component {
               <button
                 data-testid="delete-button"
                 type="button"
+                id={ actualCard.cardName }
                 onClick={ handleRemove }
               >
                 Remover Carta
@@ -115,7 +116,16 @@ class CardList extends React.Component {
   }
 }
 CardList.propTypes = {
-  savedCards: PropTypes.string,
+  savedCards: PropTypes.arrayOf(PropTypes.shape({
+    cardName: PropTypes.string,
+    cardDescription: PropTypes.string,
+    cardAttr1: PropTypes.string,
+    cardAttr2: PropTypes.string,
+    cardAttr3: PropTypes.string,
+    cardImage: PropTypes.string,
+    cardTrunfo: PropTypes.bool,
+    cardRare: PropTypes.string,
+  })),
   handleRemove: PropTypes.func,
 };
 CardList.defaultProps = {

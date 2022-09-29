@@ -55,8 +55,11 @@ class App extends React.Component {
     const verificacao = savedCards.filter(
       (actualCard) => actualCard.cardTrunfo === true,
     );
+
     if (verificacao.length > 0) {
       this.setState({ isSuperTrunfoDisabled: true });
+    } else {
+      this.setState({ isSuperTrunfoDisabled: false });
     }
   };
 
@@ -98,14 +101,14 @@ class App extends React.Component {
       cardRare: 'normal',
       cardTrunfo: false,
       isSaveButtonDisabled: false,
-    });
-    this.validateSuperTrunfo();
+    }, this.validateSuperTrunfo);
   };
 
   handleRemove = (event) => {
-    console.log(event.target.parentElement.firstChild.firstChild);
-    event.target.parentElement.remove();
-    this.setState({ isSuperTrunfoDisabled: false });
+    const { savedCards } = this.state;
+    const filterSavedCards = savedCards
+      .filter((element) => element.cardName !== event.target.id);
+    this.setState({ savedCards: filterSavedCards }, this.validateSuperTrunfo);
   };
 
   render() {
