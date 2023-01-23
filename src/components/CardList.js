@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import Card from './Card';
+import '../styles/CardList.css';
 
 class CardList extends React.Component {
   constructor() {
@@ -37,42 +38,43 @@ class CardList extends React.Component {
     return (
       <div>
         <h1>Meu Baralho</h1>
-        <input
-          onChange={ this.handleSearchValue }
-          type="text"
-          name="search"
-          id="search"
-          value={ searchValue }
-          data-testid="name-filter"
-          disabled={ isDisable }
-          placeholder="Digite aqui o nome de uma carta"
-        />
-        <label htmlFor="raridade">
-          Raridade
-          <select
-            data-testid="rare-filter"
-            onChange={ this.handleRareValue }
-            name="cardRare"
+        <section className="filterCard">
+          <input
+            onChange={ this.handleSearchValue }
+            type="text"
+            name="search"
+            id="search"
+            value={ searchValue }
+            data-testid="name-filter"
             disabled={ isDisable }
-          >
-            <option value="todas">todas</option>
-            <option value="normal">normal</option>
-            <option value="raro">raro</option>
-            <option value="muito raro">muito raro</option>
-          </select>
-          <label htmlFor="supertrunfo">
-            SuperTrunfo
-            <input
-              data-testid="trunfo-filter"
-              type="checkbox"
-              name="supertrunfo"
-              id="supertrunfo"
-              onChange={ this.handleSuperTrunfo }
-              value={ isDisable }
-            />
+            placeholder="Digite aqui o nome de uma carta"
+          />
+          <label htmlFor="raridade">
+            Raridade
+            <select
+              data-testid="rare-filter"
+              onChange={ this.handleRareValue }
+              name="cardRare"
+              disabled={ isDisable }
+            >
+              <option value="todas">todas</option>
+              <option value="normal">normal</option>
+              <option value="raro">raro</option>
+              <option value="muito raro">muito raro</option>
+            </select>
+            <label htmlFor="supertrunfo">
+              SuperTrunfo
+              <input
+                data-testid="trunfo-filter"
+                type="checkbox"
+                name="supertrunfo"
+                id="supertrunfo"
+                onChange={ this.handleSuperTrunfo }
+                value={ isDisable }
+              />
+            </label>
           </label>
-
-        </label>
+        </section>
         {cardList
           .filter((actualCard) => actualCard.cardName.toLowerCase()
             .includes(searchValue))

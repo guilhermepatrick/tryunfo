@@ -2,6 +2,7 @@ import React from 'react';
 import Card from './components/Card';
 import CardList from './components/CardList';
 import Form from './components/Form';
+import './styles/CardList.css';
 import './styles/Form.css';
 
 class App extends React.Component {
